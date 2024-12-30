@@ -1,10 +1,14 @@
 {
-    "builds": [
-      {
-        "src": "main.ts",
-        "use": "@vercel/node"
-      }
-    ],
-    "outputDirectory": "."
-  }
-  
+  "builds": [
+    {
+      "src": "dist/main.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "dist/main.js" },
+    { "src": "/api-docs-json", "dest": "/api-docs-json" },
+    { "src": "/api-docs", "dest": "/api-docs" },
+    { "src": "/swagger-static/(.*)", "dest": "/swagger-static/$1" }
+  ]
+}
