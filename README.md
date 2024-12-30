@@ -23,6 +23,9 @@ Este proyecto es una API RESTful para la gestión de tareas. Permite crear, leer
 
 ---
 
+## Deploy con Vercel
+link = prueba-tecnica-damr0dmfn-francisco-imeronis-projects.vercel.app
+
 ## Configuración local
 
 ### Paso 1: Clonar el repositorio
@@ -34,20 +37,17 @@ cd prueba-tecnica
 
 ## Paso 2: Instalar dependencias
 bash
-Copy code
 npm install
 
 ## Paso 3: Configurar las variables de entorno
 Crea un archivo .env en la raíz del proyecto y agrega las siguientes variables de entorno:
 
 env
-Copy code
 MONGODB_URI=mongodb://localhost:27017/proyecto-tareas
 PORT=3000
 
 ## Paso 4: Ejecutar el proyecto
 bash
-Copy code
 npm run start:dev
 Este comando iniciará el servidor en modo de desarrollo (development), lo que permite realizar cambios en el código sin tener que reiniciar manualmente.
 
@@ -55,7 +55,6 @@ Ejecución del proyecto
 Una vez que el proyecto esté en ejecución, puedes acceder a la API en la siguiente URL:
 
 http
-Copy code
 http://localhost:3000
 
 ## Endpoints disponibles
@@ -66,7 +65,6 @@ Descripción: Obtiene todas las tareas.
 Respuesta esperada:
 
 json
-Copy code
 [
   {
     "_id": "5f8f8c5b6c8e6a1f74f0a4b8",
@@ -81,6 +79,128 @@ Copy code
   }
 ]
 
+# POST /auth/register
+Descripción: Registra un usuario.
+
+Parámetros:
+json
+{
+  "email": "usuario@example.com",
+  "password": "123456"
+}
+Respuesta esperada:
+json
+{
+  "message": "Usuario registrado con éxito",
+  "user": {
+    "id": "1234567890",
+    "email": "usuario@example.com"
+  }
+}
+
+# POST /auth/login
+Descripción: Inicia sesión y devuelve un token.
+
+Parámetros:
+json
+{
+  "email": "usuario@example.com",
+  "password": "123456"
+}
+Respuesta esperada:
+json
+{
+  "token": "jwt-token-generado"
+}
+
+# POST /auth/logout
+Descripción: Cierra sesión invalidando el token.
+
+Parámetros:
+json
+{
+  "token": "jwt-token-generado"
+}
+Respuesta esperada:
+json
+{
+  "message": "Sesión cerrada correctamente"
+}
+ProjectsController
+
+# GET /projects
+Descripción: Obtiene todos los proyectos existentes.
+
+Respuesta esperada:
+json
+[
+  {
+    "id": "1",
+    "name": "Proyecto A",
+    "description": "Descripción del proyecto A",
+    "users": ["user1", "user2"]
+  }
+]
+
+# POST /projects
+Descripción: Crea un nuevo proyecto.
+
+Parámetros:
+json
+{
+  "name": "Nuevo Proyecto",
+  "description": "Descripción del proyecto",
+  "users": ["user1", "user2"]
+}
+Respuesta esperada:
+json
+{
+  "id": "12345",
+  "name": "Nuevo Proyecto",
+  "description": "Descripción del proyecto",
+  "users": ["user1", "user2"]
+}
+
+# GET /projects/:id
+Descripción: Obtiene un proyecto por su ID.
+
+Respuesta esperada:
+json
+{
+  "id": "1",
+  "name": "Proyecto A",
+  "description": "Descripción del proyecto A",
+  "users": ["user1", "user2"]
+}
+
+# PUT /projects/:id
+Descripción: Actualiza los datos de un proyecto.
+
+Parámetros:
+json
+{
+  "name": "Proyecto Actualizado",
+  "description": "Descripción actualizada",
+  "users": ["user3"]
+}
+Respuesta esperada:
+json
+{
+  "id": "1",
+  "name": "Proyecto Actualizado",
+  "description": "Descripción actualizada",
+  "users": ["user3"]
+}
+
+# DELETE /projects/:id
+Descripción: Elimina un proyecto específico.
+
+Respuesta esperada:
+json
+{
+  "message": "Proyecto eliminado correctamente"
+}
+
 # POST /tasks
 
 Descripción: Crea una nueva tarea.
@@ -88,7 +208,6 @@ Descripción: Crea una nueva tarea.
 Parámetros:
 
 json
-Copy code
 {
   "name": "Tarea nueva",
   "description": "Descripción",
@@ -100,7 +219,6 @@ Copy code
 Respuesta esperada:
 
 json
-Copy code
 {
   "_id": "5f8f8c5b6c8e6a1f74f0a4b9",
   "name": "Tarea nueva",
@@ -124,14 +242,12 @@ id: ID de la tarea a actualizar.
 Cuerpo de la solicitud:
 
 json
-Copy code
 {
   "status": "IN_PROGRESS"
 }
 Respuesta esperada:
 
 json
-Copy code
 {
   "_id": "5f8f8c5b6c8e6a1f74f0a4b8",
   "name": "Tarea 1",
@@ -154,7 +270,6 @@ id: ID de la tarea a eliminar.
 Respuesta esperada:
 
 json
-Copy code
 {
   "_id": "5f8f8c5b6c8e6a1f74f0a4b8",
   "name": "Tarea 1",
@@ -165,6 +280,44 @@ Copy code
   "dueDate": "2024-12-30T00:00:00.000Z",
   "createdAt": "2024-12-29T00:00:00.000Z",
   "updatedAt": "2024-12-29T00:00:00.000Z"
+}
+
+Descripción: Crea una nueva tarea.
+
+Parámetros:
+json
+{
+  "name": "Nueva tarea",
+  "description": "Descripción de la tarea",
+  "project": "proyectoID",
+  "assignedUser": "usuarioID",
+  "status": "PENDING",
+  "dueDate": "2024-12-30T00:00:00.000Z"
+}
+Respuesta esperada:
+json
+{
+  "id": "12345",
+  "name": "Nueva tarea",
+  "description": "Descripción de la tarea",
+  "status": "PENDING"
+}
+
+# GET /tasks
+Descripción: Obtiene todas las tareas.
+
+Respuesta esperada:
+(Igual que el ejemplo compartido).
+
+# GET /tasks/:id
+Descripción: Obtiene una tarea específica por su ID.
+
+Respuesta esperada:
+json
+{
+  "id": "1",
+  "name": "Tarea 1",
+  "description": "Descripción de la tarea"
 }
 
 
@@ -183,14 +336,8 @@ Instrucciones para ejecutar las pruebas
 Para ejecutar las pruebas, se utiliza Jest. Asegúrate de tener las dependencias instaladas, luego ejecuta el siguiente comando:
 
 bash
-Copy code
 npm run test
 Este comando ejecutará todas las pruebas unitarias definidas en los archivos de prueba. Si deseas ejecutar las pruebas de integración, puedes utilizar:
 
 bash
-Copy code
 npm run test:e2e
-
-
-## Deploy con Vercel
-link = https://prueba-tecnica-h5swr2o99-francisco-imeronis-projects.vercel.app
