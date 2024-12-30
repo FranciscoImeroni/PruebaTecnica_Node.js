@@ -8,6 +8,7 @@ export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly blacklistedTokens: Set<string> = new Set()
   ) {}
 
   async register(email: string, password: string) {
@@ -25,4 +26,14 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
+
+  async logout(token: string) {
+    this.blacklistedTokens.add(token);
+    return { message: 'Sesión cerrada exitosamente' };
+  }
+
+  isTokenBlacklisted(token: string): boolean {
+    return this.blacklistedTokens.has(token);
+  }
+  
 }
