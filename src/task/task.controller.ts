@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Param, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Post, Get, Param, Body, Put, Delete, Query } from '@nestjs/common';
 import { TasksService } from './task.service';
 import { Task, TaskStatus } from '../schemas/task.schema';
 
@@ -35,4 +35,21 @@ export class TasksController {
   async deleteTask(@Param('id') id: string): Promise<Task> {
     return this.tasksService.deleteTask(id);
   }
+
+  @Get('search')
+  async searchTasks(@Query('query') query: string): Promise<Task[]> {
+    return this.tasksService.searchTasks(query);
+  }
+
+  @Get('filter')
+  async filterTasks(
+    @Query('status') status?: TaskStatus,
+    @Query('dueDate') dueDate?: string,
+    @Query('assignedUser') assignedUser?: string,
+  ): Promise<Task[]> {
+    if (dueDate) dueDate = new Date(dueDate).toISOString();
+
+    return this.tasksService.filterTasks(status, dueDate ? new Date(dueDate) : undefined, assignedUser);
+  }
+
 }

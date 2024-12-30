@@ -25,6 +25,32 @@ export class TasksService {
     return this.taskModel.find().populate('project assignedUser').exec();
   }
 
+  async searchTasks(query: string): Promise<Task[]> {
+    return this.taskModel
+      .find({
+        $or: [
+          { name: { $regex: query, $options: 'i' } },
+          { description: { $regex: query, $options: 'i' } },
+        ],
+      })
+      .exec();
+  }
+
+  async filterTasks(
+    status?: TaskStatus,
+    dueDate?: Date,
+    assignedUser?: string,
+  ): Promise<Task[]> {
+    const filters: any = {};
+
+    if (status) filters.status = status;
+    if (dueDate) filters.dueDate = { $lte: dueDate };
+    if (assignedUser) filters.assignedUser = assignedUser;
+
+    return this.taskModel.find(filters).exec();
+  }
+
+
   async updateTaskStatus(id: string, status: TaskStatus): Promise<Task> {
     return this.taskModel.findByIdAndUpdate(id, { status }, { new: true }).exec();
   }
