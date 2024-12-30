@@ -3,7 +3,7 @@ import { TasksService } from './task.service';
 import { Task, TaskStatus } from '../schemas/task.schema';
 import { ApiTags, ApiOperation, ApiBody, ApiParam, ApiQuery } from '@nestjs/swagger';
 
-@ApiTags('Tasks') // Etiqueta para agrupar los endpoints de tareas
+@ApiTags('Tasks') 
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
