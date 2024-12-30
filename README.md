@@ -58,7 +58,7 @@ http
 http://localhost:3000
 
 ## Endpoints disponibles
-# GET /tasks
+###  GET /tasks
 
 Descripción: Obtiene todas las tareas.
 
@@ -79,7 +79,7 @@ json
   }
 ]
 
-# POST /auth/register
+###  POST /auth/register
 Descripción: Registra un usuario.
 
 Parámetros:
@@ -98,7 +98,7 @@ json
   }
 }
 
-# POST /auth/login
+###  POST /auth/login
 Descripción: Inicia sesión y devuelve un token.
 
 Parámetros:
@@ -113,7 +113,7 @@ json
   "token": "jwt-token-generado"
 }
 
-# POST /auth/logout
+###  POST /auth/logout
 Descripción: Cierra sesión invalidando el token.
 
 Parámetros:
@@ -128,7 +128,7 @@ json
 }
 ProjectsController
 
-# GET /projects
+###  GET /projects
 Descripción: Obtiene todos los proyectos existentes.
 
 Respuesta esperada:
@@ -142,7 +142,7 @@ json
   }
 ]
 
-# POST /projects
+###  POST /projects
 Descripción: Crea un nuevo proyecto.
 
 Parámetros:
@@ -161,7 +161,7 @@ json
   "users": ["user1", "user2"]
 }
 
-# GET /projects/:id
+###  GET /projects/:id
 Descripción: Obtiene un proyecto por su ID.
 
 Respuesta esperada:
@@ -173,7 +173,7 @@ json
   "users": ["user1", "user2"]
 }
 
-# PUT /projects/:id
+###  PUT /projects/:id
 Descripción: Actualiza los datos de un proyecto.
 
 Parámetros:
@@ -192,7 +192,7 @@ json
   "users": ["user3"]
 }
 
-# DELETE /projects/:id
+###  DELETE /projects/:id
 Descripción: Elimina un proyecto específico.
 
 Respuesta esperada:
@@ -201,7 +201,7 @@ json
   "message": "Proyecto eliminado correctamente"
 }
 
-# POST /tasks
+###  POST /tasks
 
 Descripción: Crea una nueva tarea.
 
@@ -231,7 +231,7 @@ json
   "updatedAt": "2024-12-29T00:00:00.000Z"
 }
 
-# PUT /tasks/:id
+### PUT /tasks/:id
 
 Descripción: Actualiza una tarea específica.
 
@@ -260,7 +260,7 @@ json
   "updatedAt": "2024-12-29T00:00:00.000Z"
 }
 
- # DELETE /tasks/:id
+ ###  DELETE /tasks/:id
 
 Descripción: Elimina una tarea específica.
 
@@ -282,6 +282,7 @@ json
   "updatedAt": "2024-12-29T00:00:00.000Z"
 }
 
+### POST /tasks
 Descripción: Crea una nueva tarea.
 
 Parámetros:
@@ -303,13 +304,10 @@ json
   "status": "PENDING"
 }
 
-# GET /tasks
+###  GET /tasks
 Descripción: Obtiene todas las tareas.
 
-Respuesta esperada:
-(Igual que el ejemplo compartido).
-
-# GET /tasks/:id
+###  GET /tasks/:id
 Descripción: Obtiene una tarea específica por su ID.
 
 Respuesta esperada:
